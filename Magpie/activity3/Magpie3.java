@@ -112,6 +112,8 @@ public class Magpie3
 			psn = phrase.indexOf(goal, psn + 1);
 
 		}
+		
+		System.out.println(startPos);
 
 		return -1;
 	}
