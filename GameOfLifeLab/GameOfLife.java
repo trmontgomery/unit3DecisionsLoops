@@ -22,9 +22,13 @@ public class GameOfLife
     private final int COLS = 5;
     
     // constants for the location of the three cells initially alive
-    private final int X1 = 0, Y1 = 2;
-    private final int X2 = 2, Y2 = 0;
-    private final int X3 = 2, Y3 = 1;
+    private final int Y1 = 0, X1 = 1;
+    private final int Y2 = 1, X2 = 3;
+    private final int Y3 = 2, X3 = 0;
+    private final int Y4 = 2, X4 = 1;
+    private final int Y5 = 2, X5 = 4;
+    private final int Y6 = 2, X6 = 5;
+    private final int Y7 = 2, X7 = 6;
 
     /**
      * Default constructor for objects of class GameOfLife
@@ -63,16 +67,32 @@ public class GameOfLife
         
         // create and add rocks (a type of Actor) to the three intial locations
         Rock rock1 = new Rock();
-        Location loc1 = new Location(X1, Y1);
+        Location loc1 = new Location(Y1, X1);
         grid.put(loc1, rock1);
         
         Rock rock2 = new Rock();
-        Location loc2 = new Location(X2, Y2);
+        Location loc2 = new Location(Y2, X2);
         grid.put(loc2, rock2);
         
         Rock rock3 = new Rock();
-        Location loc3 = new Location(X3, Y3);
+        Location loc3 = new Location(Y3, X3);
         grid.put(loc3, rock3);
+        
+        Rock rock4 = new Rock();
+        Location loc4 = new Location(Y4, X4);
+        grid.put(loc4, rock4);
+        
+        Rock rock5 = new Rock();
+        Location loc5 = new Location(Y5, X5);
+        grid.put(loc5, rock5);
+        
+        Rock rock6 = new Rock();
+        Location loc6 = new Location(Y6, X6);
+        grid.put(loc6, rock6);
+        
+        Rock rock7 = new Rock();
+        Location loc7 = new Location(Y7, X7);
+        grid.put(loc7, rock7);
     }
 
     /**
