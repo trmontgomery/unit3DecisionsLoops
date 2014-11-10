@@ -1,9 +1,9 @@
-import info.gridworld.actor.Actor;
-import info.gridworld.actor.ActorWorld;
-import info.gridworld.actor.Rock;
+import info.gridworld.actor.*;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
+import static org.junit.Assert.*;
+import info.gridworld.grid.*; 
 
 /**
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
@@ -18,10 +18,10 @@ public class GameOfLife
     private ActorWorld world;
     
     // the game board will have 5 rows and 5 columns
-    private final int ROWS = 5;
-    private final int COLS = 5;
+    private final int ROWS = 20;
+    private final int COLS = 20;
     
-    // constants for the location of the three cells initially alive
+    // constants for the location of the seven cells initially alive
     private final int Y1 = 0, X1 = 1;
     private final int Y2 = 1, X2 = 3;
     private final int Y3 = 2, X3 = 0;
@@ -66,19 +66,19 @@ public class GameOfLife
         Grid<Actor> grid = world.getGrid();
         
         // create and add rocks (a type of Actor) to the three intial locations
-        Rock rock1 = new Rock();
+        Actor rock1 = new Actor();
         Location loc1 = new Location(Y1, X1);
         grid.put(loc1, rock1);
         
-        Rock rock2 = new Rock();
+        Bug rock2 = new Bug();
         Location loc2 = new Location(Y2, X2);
         grid.put(loc2, rock2);
         
-        Rock rock3 = new Rock();
+        Critter rock3 = new Critter();
         Location loc3 = new Location(Y3, X3);
         grid.put(loc3, rock3);
         
-        Rock rock4 = new Rock();
+        Flower rock4 = new Flower();
         Location loc4 = new Location(Y4, X4);
         grid.put(loc4, rock4);
         
@@ -113,7 +113,15 @@ public class GameOfLife
         Grid<Actor> grid = world.getGrid();
         
         // insert magic here...
-        
+        for(int row = 0; row < ROWS; row++)
+        {
+            for(int col = 0; col < COLS; col++)
+            {
+                Location locCell = new Location(ROWS, COLS);
+                assertNotNull(locCell);
+                
+            }
+        }
     }
     
     /**
