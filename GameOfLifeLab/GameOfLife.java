@@ -2,8 +2,8 @@ import info.gridworld.actor.*;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
-import static org.junit.Assert.*;
 import info.gridworld.grid.*; 
+import java.util.ArrayList;
 
 /**
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
@@ -18,8 +18,8 @@ public class GameOfLife
     private ActorWorld world;
     
     // the game board will have 5 rows and 5 columns
-    private final int ROWS = 20;
-    private final int COLS = 20;
+    private final int ROWS = 10;
+    private final int COLS = 10;
     
     // constants for the location of the seven cells initially alive
     private final int Y1 = 0, X1 = 1;
@@ -66,19 +66,19 @@ public class GameOfLife
         Grid<Actor> grid = world.getGrid();
         
         // create and add rocks (a type of Actor) to the three intial locations
-        Actor rock1 = new Actor();
+        Rock rock1 = new Rock();
         Location loc1 = new Location(Y1, X1);
         grid.put(loc1, rock1);
         
-        Bug rock2 = new Bug();
+        Rock rock2 = new Rock();
         Location loc2 = new Location(Y2, X2);
         grid.put(loc2, rock2);
         
-        Critter rock3 = new Critter();
+        Rock rock3 = new Rock();
         Location loc3 = new Location(Y3, X3);
         grid.put(loc3, rock3);
         
-        Flower rock4 = new Flower();
+        Rock rock4 = new Rock();
         Location loc4 = new Location(Y4, X4);
         grid.put(loc4, rock4);
         
@@ -111,17 +111,56 @@ public class GameOfLife
         
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
-        
         // insert magic here...
-        for(int row = 0; row < ROWS; row++)
+        //iterate through an ArrayList
+        
+        ArrayList<Location> alive = grid.getOccupiedLocations();
+        for (Location loc: alive)
+        {
+            System.out.println(loc);
+            ArrayList<Location> neighbors = grid.getOccupiedAdjacentLocations(loc);
+            ArrayList<Location> dead = world.getGrid().getEmptyAdjacentLocations(loc);
+            
+            if (neighbors.size() == 2 || neighbors.size() == 3)
+            {
+                Rock rockx = new Rock();
+                grid.put(loc, rockx);
+                System.out.println("  This cell stayed alive: " + loc);
+            }
+            
+            for (Location empty: dead)
+            {
+                System.out.println("\t" + empty);
+                ArrayList<Location> deadNeighbors = world.getGrid().getOccupiedAdjacentLocations(empty);
+                if (deadNeighbors.size() == 3)
+                {
+                    Rock rocky = new Rock();
+                    grid.put(empty, rocky);
+                    System.out.println("  This cell was born:" + empty);
+                }
+            }
+        }
+        
+        /*
+         *  for(int row = 0; row < ROWS; row++)
         {
             for(int col = 0; col < COLS; col++)
             {
-                Location locCell = new Location(ROWS, COLS);
-                assertNotNull(locCell);
+                Location locCell = new Location(row, col);
                 
+                if (grid.get(locCell) != null)
+                {
+                    System.out.println("Yes");
+                }        
+                else
+                {
+                 System.out.println("No");   
+                }
             }
         }
+         */
+       
+        
     }
     
     /**
@@ -167,6 +206,8 @@ public class GameOfLife
     public static void main(String[] args)
     {
         GameOfLife game = new GameOfLife();
+        game.createNextGeneration();
+       
     }
 
 }

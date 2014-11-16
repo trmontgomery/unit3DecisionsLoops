@@ -102,6 +102,7 @@ public class GameOfLifeTest
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
         final int COLS = game.getNumCols();
+        //game.createNextGeneration(); //do I want this to run three times??
 
         for(int row = 0; row < ROWS; row++)
         {
