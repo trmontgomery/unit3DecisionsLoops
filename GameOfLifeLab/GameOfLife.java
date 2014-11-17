@@ -18,8 +18,8 @@ public class GameOfLife
     private ActorWorld world;
     
     // the game board will have 5 rows and 5 columns
-    private final int ROWS = 10;
-    private final int COLS = 10;
+    private final int ROWS = 20;
+    private final int COLS = 20;
     
     // constants for the location of the seven cells initially alive
     private final int Y1 = 0, X1 = 1;
@@ -103,7 +103,7 @@ public class GameOfLife
      * @post    the world has been populated with a new grid containing the next generation
      * 
      */
-    private void createNextGeneration()
+    public void createNextGeneration()
     {
         /** You will need to read the documentation for the World, Grid, and Location classes
          *      in order to implement the Game of Life algorithm and leverage the GridWorld framework.
@@ -111,34 +111,55 @@ public class GameOfLife
         
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
-        // insert magic here...
-        //iterate through an ArrayList
         
-        ArrayList<Location> alive = grid.getOccupiedLocations();
-        for (Location loc: alive)
+        // insert magic here...
+        ArrayList<Location> liveCells = grid.getOccupiedLocations();
+        ArrayList<Location> deadCells = new ArrayList<Location>();
+        ArrayList<Location> cellsToRemove = new ArrayList<Location>();
+        ArrayList<Location> cellsToBeBorn = new ArrayList<Location>();
+        for (Location alive: liveCells)
         {
-            System.out.println(loc);
-            ArrayList<Location> neighbors = grid.getOccupiedAdjacentLocations(loc);
-            ArrayList<Location> dead = world.getGrid().getEmptyAdjacentLocations(loc);
-            
-            if (neighbors.size() == 2 || neighbors.size() == 3)
+            ArrayList<Location> neighbors = grid.getOccupiedAdjacentLocations(alive);
+            ArrayList<Location> emptyCells = grid.getEmptyAdjacentLocations(alive);
+            for (Location empty: emptyCells)
             {
-                Rock rockx = new Rock();
-                grid.put(loc, rockx);
-                System.out.println("  This cell stayed alive: " + loc);
+                //for (Location equal : deadCells)
+                //{
+                    //if (!(equal.equals(empty)))
+                    //{
+                        deadCells.add(empty);
+                    //}
+                //}
             }
             
-            for (Location empty: dead)
+            if (!(neighbors.size() == 2 || neighbors.size() == 3))
             {
-                System.out.println("\t" + empty);
-                ArrayList<Location> deadNeighbors = world.getGrid().getOccupiedAdjacentLocations(empty);
-                if (deadNeighbors.size() == 3)
-                {
-                    Rock rocky = new Rock();
-                    grid.put(empty, rocky);
-                    System.out.println("  This cell was born:" + empty);
-                }
+                //for (Location removal: cellsToRemove)
+                //{
+                    //if (!(removal.equals(alive)))
+                    //{
+                        cellsToRemove.add(alive);
+                    //}
+                //}
             }
+        }
+           
+        for (Location dead: deadCells)
+        {
+            ArrayList<Location> neighbors = world.getGrid().getOccupiedAdjacentLocations(dead);
+            if (neighbors.size() == 3)
+            {
+                cellsToBeBorn.add(dead);
+            }
+        }
+        for (Location birth: cellsToBeBorn)
+        {
+            Flower flower = new Flower();
+            grid.put(birth, flower);
+        }
+        for (Location death: cellsToRemove)
+        {
+            grid.remove(death);
         }
         
         /*
@@ -204,10 +225,17 @@ public class GameOfLife
      *
      */
     public static void main(String[] args)
+        throws InterruptedException
     {
         GameOfLife game = new GameOfLife();
-        game.createNextGeneration();
-       
+        int run = 0;
+        //game.createNextGeneration();
+        //game.createNextGeneration();
+        //game.createNextGeneration();
+        while (run != 1)
+        {
+            Thread.sleep(1000);
+            game.createNextGeneration();
+        }
     }
-
 }

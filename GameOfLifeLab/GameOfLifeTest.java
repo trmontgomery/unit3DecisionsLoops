@@ -92,8 +92,8 @@ public class GameOfLifeTest
         /* verify that the actual pattern matches the expected pattern after 3 generations
          *    0 1 2 3 4 5 6
          *  0 - - A - A - -
-         *  1 - - - A A A -
-         *  2 A A - A - - A
+         *  1 A A - A A A -
+         *  2 - - - A - - A
          *  3 - - - - A A -
          *  4 - - - - - - -
          *  5 - - - - - - -
@@ -102,7 +102,10 @@ public class GameOfLifeTest
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
         final int COLS = game.getNumCols();
-        //game.createNextGeneration(); //do I want this to run three times??
+        game.createNextGeneration();
+        game.createNextGeneration();
+        game.createNextGeneration();
+       
 
         for(int row = 0; row < ROWS; row++)
         {
@@ -117,8 +120,8 @@ public class GameOfLifeTest
                         (row == 1 && col == 3) ||
                         (row == 1 && col == 4) ||
                         (row == 1 && col == 5) ||
-                        (row == 2 && col == 0) ||
-                        (row == 2 && col == 1) ||
+                        (row == 1 && col == 0) ||
+                        (row == 1 && col == 1) ||
                         (row == 2 && col == 3) ||
                         (row == 2 && col == 6) ||
                         (row == 3 && col == 4) ||
