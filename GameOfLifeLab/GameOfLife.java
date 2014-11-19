@@ -1,6 +1,7 @@
 import info.gridworld.actor.*;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
+import info.gridworld.grid.UnboundedGrid;
 import info.gridworld.grid.Location;
 import info.gridworld.grid.*; 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class GameOfLife
     public GameOfLife()
     {
         // create the grid, of the specified size, that contains Actors
-        BoundedGrid<Actor> grid = new BoundedGrid<Actor>(ROWS, COLS);
+        UnboundedGrid<Actor> grid = new UnboundedGrid<Actor>();
         
         // create a world based on the grid
         world = new ActorWorld(grid);
@@ -123,24 +124,12 @@ public class GameOfLife
             ArrayList<Location> emptyCells = grid.getEmptyAdjacentLocations(alive);
             for (Location empty: emptyCells)
             {
-                //for (Location equal : deadCells)
-                //{
-                    //if (!(equal.equals(empty)))
-                    //{
-                        deadCells.add(empty);
-                    //}
-                //}
+               deadCells.add(empty);
             }
             
             if (!(neighbors.size() == 2 || neighbors.size() == 3))
             {
-                //for (Location removal: cellsToRemove)
-                //{
-                    //if (!(removal.equals(alive)))
-                    //{
-                        cellsToRemove.add(alive);
-                    //}
-                //}
+                cellsToRemove.add(alive);
             }
         }
            
@@ -154,16 +143,19 @@ public class GameOfLife
         }
         for (Location birth: cellsToBeBorn)
         {
-            Flower flower = new Flower();
-            grid.put(birth, flower);
+            Rock rock = new Rock();
+            grid.put(birth, rock);
         }
         for (Location death: cellsToRemove)
         {
             grid.remove(death);
         }
-        
-        /*
-         *  for(int row = 0; row < ROWS; row++)
+        world.setGrid(grid);
+     
+         /*
+          * * * Alternate way to check for live cells
+          * 
+        for(int row = 0; row < ROWS; row++)
         {
             for(int col = 0; col < COLS; col++)
             {
@@ -179,8 +171,8 @@ public class GameOfLife
                 }
             }
         }
-         */
-       
+        
+          */
         
     }
     
@@ -229,12 +221,9 @@ public class GameOfLife
     {
         GameOfLife game = new GameOfLife();
         int run = 0;
-        //game.createNextGeneration();
-        //game.createNextGeneration();
-        //game.createNextGeneration();
         while (run != 1)
         {
-            Thread.sleep(1000);
+            Thread.sleep(100);
             game.createNextGeneration();
         }
     }
