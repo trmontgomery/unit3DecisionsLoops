@@ -40,7 +40,7 @@ public class GameOfLife
     public GameOfLife()
     {
         // create the grid, of the specified size, that contains Actors
-        UnboundedGrid<Actor> grid = new UnboundedGrid<Actor>();
+        BoundedGrid<Actor> grid = new BoundedGrid<Actor>(ROWS, COLS);
         
         // create a world based on the grid
         world = new ActorWorld(grid);
@@ -67,33 +67,33 @@ public class GameOfLife
         Grid<Actor> grid = world.getGrid();
         
         // create and add rocks (a type of Actor) to the three intial locations
-        Rock rock1 = new Rock();
+        Flower flower1 = new Flower();
         Location loc1 = new Location(Y1, X1);
-        grid.put(loc1, rock1);
+        grid.put(loc1, flower1);
         
-        Rock rock2 = new Rock();
+        Flower flower2 = new Flower();
         Location loc2 = new Location(Y2, X2);
-        grid.put(loc2, rock2);
+        grid.put(loc2, flower2);
         
-        Rock rock3 = new Rock();
+        Flower flower3 = new Flower();
         Location loc3 = new Location(Y3, X3);
-        grid.put(loc3, rock3);
+        grid.put(loc3, flower3);
         
-        Rock rock4 = new Rock();
+        Flower flower4 = new Flower();
         Location loc4 = new Location(Y4, X4);
-        grid.put(loc4, rock4);
+        grid.put(loc4, flower4);
         
-        Rock rock5 = new Rock();
+        Flower flower5 = new Flower();
         Location loc5 = new Location(Y5, X5);
-        grid.put(loc5, rock5);
+        grid.put(loc5, flower5);
         
-        Rock rock6 = new Rock();
+        Flower flower6 = new Flower();
         Location loc6 = new Location(Y6, X6);
-        grid.put(loc6, rock6);
+        grid.put(loc6, flower6);
         
-        Rock rock7 = new Rock();
+        Flower flower7 = new Flower();
         Location loc7 = new Location(Y7, X7);
-        grid.put(loc7, rock7);
+        grid.put(loc7, flower7);
     }
 
     /**
@@ -143,8 +143,35 @@ public class GameOfLife
         }
         for (Location birth: cellsToBeBorn)
         {
-            Rock rock = new Rock();
-            grid.put(birth, rock);
+            Flower flower = new Flower();
+            int row = birth.getRow();
+            int col = birth.getCol();
+            
+            if (birth.getRow() == 0)
+            {
+                Location x = new Location((birth.getRow() + 1), col); 
+                grid.put(x, flower);
+            }
+            
+            if (birth.getRow() == (ROWS -1))
+            {
+                Location x = new Location((birth.getRow() - 1), col); 
+                grid.put(x, flower);
+            }
+            
+            if (birth.getCol() == 0)
+            {
+                Location x = new Location(row, (birth.getCol() + 1));  
+                grid.put(x, flower);
+            }
+            
+            if (birth.getCol() == (COLS - 1))
+            {
+                Location x = new Location(row, (birth.getCol() - 1));  
+                grid.put(x, flower);
+            }
+ 
+            grid.put(birth, flower);
         }
         for (Location death: cellsToRemove)
         {
