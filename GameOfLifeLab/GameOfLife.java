@@ -5,6 +5,7 @@ import info.gridworld.grid.UnboundedGrid;
 import info.gridworld.grid.Location;
 import info.gridworld.grid.*; 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
@@ -66,34 +67,20 @@ public class GameOfLife
         //  (alive cells contains actors; dead cells do not)
         Grid<Actor> grid = world.getGrid();
         
-        // create and add rocks (a type of Actor) to the three intial locations
-        Flower flower1 = new Flower();
-        Location loc1 = new Location(Y1, X1);
-        grid.put(loc1, flower1);
+        //let the user choose the intial start pattern
+        Scanner in = new Scanner(System.in);
+        System.out.println("Choose an intial start pattern:  Acorn or Random? ");
+        String intial = in.next();
+        if (intial.toLowerCase().compareTo("random") == 0)
+        {
+            drawRandom(grid);
+        }
         
-        Flower flower2 = new Flower();
-        Location loc2 = new Location(Y2, X2);
-        grid.put(loc2, flower2);
+        if (intial.toLowerCase().compareTo("acorn") == 0)
+        {
+            drawAcorn(grid);
+        }
         
-        Flower flower3 = new Flower();
-        Location loc3 = new Location(Y3, X3);
-        grid.put(loc3, flower3);
-        
-        Flower flower4 = new Flower();
-        Location loc4 = new Location(Y4, X4);
-        grid.put(loc4, flower4);
-        
-        Flower flower5 = new Flower();
-        Location loc5 = new Location(Y5, X5);
-        grid.put(loc5, flower5);
-        
-        Flower flower6 = new Flower();
-        Location loc6 = new Location(Y6, X6);
-        grid.put(loc6, flower6);
-        
-        Flower flower7 = new Flower();
-        Location loc7 = new Location(Y7, X7);
-        grid.put(loc7, flower7);
     }
 
     /**
@@ -238,11 +225,50 @@ public class GameOfLife
         return COLS;
     }
     
+    public void drawRandom(Grid<Actor> g)
+    {
+        int amount = (int)(Math.random() * ROWS * COLS);
+        Flower flower = new Flower();
+        for (int i = 0; i < amount; i++)
+        {
+            int row = (int)(Math.random() * ROWS);
+            int col = (int)(Math.random() * COLS);
+            Location x = new Location (row, col);
+            g.put(x, flower);
+        }
+    }
     
-    /**
-     * Creates an instance of this class. Provides convenient execution.
-     *
-     */
+    public void drawAcorn(Grid<Actor> grid)
+    {
+        Flower flower1 = new Flower();
+        Location loc1 = new Location(Y1, X1);
+        grid.put(loc1, flower1);
+        
+        Flower flower2 = new Flower();
+        Location loc2 = new Location(Y2, X2);
+        grid.put(loc2, flower2);
+        
+        Flower flower3 = new Flower();
+        Location loc3 = new Location(Y3, X3);
+        grid.put(loc3, flower3);
+        
+        Flower flower4 = new Flower();
+        Location loc4 = new Location(Y4, X4);
+        grid.put(loc4, flower4);
+        
+        Flower flower5 = new Flower();
+        Location loc5 = new Location(Y5, X5);
+        grid.put(loc5, flower5);
+        
+        Flower flower6 = new Flower();
+        Location loc6 = new Location(Y6, X6);
+        grid.put(loc6, flower6);
+        
+        Flower flower7 = new Flower();
+        Location loc7 = new Location(Y7, X7);
+        grid.put(loc7, flower7);
+    }
+
     public static void main(String[] args)
         throws InterruptedException
     {
