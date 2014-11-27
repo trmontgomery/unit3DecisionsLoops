@@ -79,6 +79,26 @@ Artifacts to Produce:
     design artifact. I must review your design document before you start
     implementing code. You may change your design document throughout
     development.
+    
+    
+    PseudoCode:
+      createNextGeneration()
+        1)iterate through all of the live cells and keep track of its neighbors and 
+          the amount of empty cells around it
+          1a)add all of the empty cells to an ArrayList (intialized outside of 
+             the for loop)
+          1b)if the amount of neighbors near the current cell is not equal to 2 
+             or 3 then add them  it to an ArrayList of cells to remove (initialized 
+             outside of the for loop)
+        2)iterate through all of the deadcells collected in the last for loop
+          2a)if the amount of neighbors the current cell has is equal to 3 then add 
+          it to an ArrayList of cells to be born (initialized outside of the loop)
+        3)iterate through all of the cells to be born and then add them to the grid
+        4)iterate through all of the cells to be removed and then remove them from 
+          the grid.  (All of these steps need to be in this exact order or all of 
+          the cells get removed)
+    
+    
 * Test Plan: You must create a test plan with specific test cases (at least
     two) before starting implementation. I must review your test plan before
     you start implementing your test class. You may change your test plan
@@ -93,6 +113,22 @@ Artifacts to Produce:
     like or dislike and why? What was surprising or unexpected? What did you
     learn? What questions do you still have? What advice would you offer next
     year's students?
+    
+    
+        When I began to write the createNextGeneration() method I originally tried 
+  to test whether or not a cell was alive by iterating through every cell in the 
+  grid and then checking to see if the current cell’s location was null and then 
+  printing out yes if it was alive and no if it was dead in order to test my logic 
+  (see alternative code commented out within the method). When I ran this, my 
+  terminal window showed that there were no cells alive and I was quite frustrated 
+  until you showed me that I just needed to enable unlimited buffering in the 
+  terminal window.  However, I still wanted to have something done so I read ahead 
+  in Chapter 7 and used ArrayLists to implement the pseudocode above.  Things I am 
+  still interested in doing are adding new actors, making the live cells appear on 
+  the opposite side of the screen if they hit a wall of the grid, and making the 
+  Step button work, because you made it sound like it was difficult, and I like to 
+  challenge myself.
+
 
 
 Submission:
