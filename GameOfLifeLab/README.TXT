@@ -50,8 +50,11 @@ Artifacts to Produce:
     
     My requirements:  
     grid is 20x20
+    
     live cells look like: flower 
-    dead cells look like: rock
+    
+    dead cells look like: empty cell
+    
     intitial pattern: 
      0 1 2 3 4 5 6
     0 - A - - - - -
@@ -61,9 +64,12 @@ Artifacts to Produce:
     4 - - - - - - -
     5 - - - - - - -
     6 - - - - - - -
-    how long does the game run?:  50 generations
+    
+    how long does the game run?:  infinitely 
+    
     time interval between generations: one millisecond
-    it does not wrap around
+    
+    The cells are contained in a bounded grid
     
             
     

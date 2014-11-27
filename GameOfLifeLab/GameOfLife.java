@@ -67,7 +67,7 @@ public class GameOfLife
         //  (alive cells contains actors; dead cells do not)
         Grid<Actor> grid = world.getGrid();
         
-        //let the user choose the intial start pattern
+        //lets the user choose the intial start pattern
         Scanner in = new Scanner(System.in);
         System.out.println("Choose an intial start pattern:  Acorn or Random? ");
         String intial = in.next();
@@ -134,7 +134,10 @@ public class GameOfLife
             int row = birth.getRow();
             int col = birth.getCol();
             
-            if (birth.getRow() == 0)
+            /*
+             * This section of code makes any live cell that reaches the ends of the grid bounce off of the walls (just for kicks)
+             * 
+             * if (birth.getRow() == 0)
             {
                 Location x = new Location((birth.getRow() + 1), col); 
                 grid.put(x, flower);
@@ -157,6 +160,8 @@ public class GameOfLife
                 Location x = new Location(row, (birth.getCol() - 1));  
                 grid.put(x, flower);
             }
+             */
+            
  
             grid.put(birth, flower);
         }
@@ -167,7 +172,7 @@ public class GameOfLife
         world.setGrid(grid);
      
          /*
-          * * * Alternate way to check for live cells
+          * Alternate way to check for live cells
           * 
         for(int row = 0; row < ROWS; row++)
         {
@@ -225,7 +230,14 @@ public class GameOfLife
         return COLS;
     }
     
-    public void drawRandom(Grid<Actor> g)
+    
+    /**
+     * Intitializes the grid with a Random pattern
+     * 
+     * @param  grid  The grid that the pattern is to be intialized in
+     */
+ 
+    public void drawRandom(Grid<Actor> grid)
     {
         int amount = (int)(Math.random() * ROWS * COLS);
         Flower flower = new Flower();
@@ -234,10 +246,16 @@ public class GameOfLife
             int row = (int)(Math.random() * ROWS);
             int col = (int)(Math.random() * COLS);
             Location x = new Location (row, col);
-            g.put(x, flower);
+            grid.put(x, flower);
         }
     }
     
+    
+    /**
+     * Intitializes the grid with an Acorn pattern
+     * 
+     * @param  grid  The grid that the pattern is to be intialized in
+     */
     public void drawAcorn(Grid<Actor> grid)
     {
         Flower flower1 = new Flower();
